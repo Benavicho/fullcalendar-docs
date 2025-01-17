@@ -1,64 +1,98 @@
----
-title: Background Events
-type: guide
-layout: docs-sublanding
-demos:
-  - background-events-demo
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FullCalendar Demo</title>
+    <!-- FullCalendar CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.css" rel="stylesheet">
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-Events that appear as background highlights can be achieved by setting an [Event Object](event-object)'s `display` property to `"background"`:
+        #calendar {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
 
-```js
-var calendar = new Calendar(calendarEl, {
-  initialDate: '2014-11-10',
-  initialView: 'timeGridWeek',
-  events: [
-    {
-      start: '2014-11-10T10:00:00',
-      end: '2014-11-10T16:00:00',
-      display: 'background'
-    }
-  ]
-});
-```
+        .fc-toolbar {
+            background-color: #3b82f6;
+            color: #ffffff;
+            border-radius: 8px 8px 0 0;
+        }
 
-Result:
+        .fc-button {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            margin: 5px;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
 
-<img src='background-events.png' width='500' alt='background events example' />
+        .fc-button:hover {
+            background-color: #2563eb;
+        }
 
-Background events that are **timed** will only be rendered on the time slots in TimeGrid view.
+        .fc-daygrid-day {
+            transition: background-color 0.3s ease;
+        }
 
+        .fc-daygrid-day:hover {
+            background-color: #e0f2fe;
+        }
 
-## Color
+        .fc-event {
+            background-color: #3b82f6;
+            color: white;
+            border: none;
+            padding: 5px;
+            border-radius: 5px;
+            text-align: center;
+        }
 
-The color of background events can be manipulated by targeting the `fc-bg-event` className, one of your own custom classNames provided by the [Event Object](event-object)'s `className` property, or by explicitly specifying a color with each [Event Object](event-object)'s or [Event Source](event-source-object)'s `color` or `backgroundColor` properties.
+        .fc-bg-event {
+            background-color: rgba(59, 130, 246, 0.3);
+        }
+    </style>
+</head>
+<body>
 
+    <div id="calendar"></div>
 
-## Inverse Backgrounds
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
 
-The spans of time *not* occupied by an event can be colored by setting the `display` property to `"inverse-background"`:
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialDate: '2014-11-10',
+                initialView: 'timeGridWeek',
+                events: [
+                    {
+                        start: '2014-11-10T10:00:00',
+                        end: '2014-11-10T16:00:00',
+                        display: 'background'
+                    }
+                ]
+            });
 
-```js
-var calendar = new Calendar(calendarEl, {
-  initialDate: '2014-11-10',
-  initialView: 'timeGridWeek',
-  events: [
-    {
-      groupId: 'testGroupId',
-      start: '2014-11-10T10:00:00',
-      end: '2014-11-10T16:00:00',
-      display: 'inverse-background'
-    }
-  ]
-});
-```
+            calendar.render();
+        });
+    </script>
 
-Result:
-
-<img src='background-events-inverse.png' width='500' alt='inverse background example' />
-
-Events that share the same `groupId` will be grouped together when this rendering happens.
-
-## Modifying Events
-
-The [editable](editable) property of a calendar determines whether the events on it can be modified. However, Background Events are not editable. They can not be *dragged* or *resized*.
+</body>
+</html>
